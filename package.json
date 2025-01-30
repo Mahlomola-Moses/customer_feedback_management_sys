@@ -5,8 +5,9 @@
   "main": "index.js",
   "scripts": {
     "start": "node dist/server.js",
-    "build": "tsc",
-    "dev": "nodemon --ext ts --exec ts-node src/server.ts"
+    "build": "npm run tsc",
+    "dev": "nodemon --ext ts --exec ts-node src/server.ts",
+    "tsc": "tsc"
   },
   "author": "mahlomola moses mothogaone",
   "license": "ISC",
@@ -24,12 +25,19 @@
   },
   "devDependencies": {
     "@types/bcryptjs": "^2.4.6",
+    "@types/body-parser": "^1.19.5",
     "@types/cors": "^2.8.17",
     "@types/express": "^5.0.0",
     "@types/jsonwebtoken": "^9.0.8",
+    "@types/ms": "^2.1.0",
     "@types/node": "^22.12.0",
+    "@types/qs": "^6.9.18",
+    "@types/range-parser": "^1.2.7",
+    "@types/send": "^0.17.4",
+    "@types/serve-static": "^1.15.7",
     "@types/swagger-jsdoc": "^6.0.4",
     "@types/swagger-ui-express": "^4.1.7",
+    "@types/webidl-conversions": "^7.0.3",
     "nodemon": "^3.1.9",
     "ts-node": "^10.9.2",
     "typescript": "^5.7.3"
