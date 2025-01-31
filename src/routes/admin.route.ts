@@ -15,16 +15,29 @@ export class AdminRoutes {
      * @swagger
      * /admin:
      *   get:
-     *     summary: get list of admins added in the application
+     *     summary: Get list of admins added in the application
      *     tags: [Admin]
-     *     requestBody:
-     *       required: false
+     *     parameters:
+     *       - in: query
+     *         name: page
+     *         schema:
+     *           type: integer
+     *           default: 1
+     *         description: Page number for pagination (optional)
+     *       - in: query
+     *         name: limit
+     *         schema:
+     *           type: integer
+     *           default: 10
+     *         description: Number of admins per page (optional)
      *     responses:
      *       200:
-     *         description: admins fetched successfully
+     *         description: Admins fetched successfully
+     *
      *       500:
-     *         description: Error fetching admin
+     *         description: Error fetching admins
      */
+
     this.router.get("/admin", async (req: Request, res: Response) => {
       await this.adminController.getAdmins(req, res);
     });
