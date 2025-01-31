@@ -8,6 +8,7 @@ import swaggerOptions from "./configs/swagger.config";
 
 // Import application routes
 import { AdminRoutes } from "./routes/admin.route";
+import mongoose from "mongoose";
 
 export class App {
   public app: express.Application;
@@ -37,6 +38,17 @@ export class App {
     //setup swagger
     const swaggerSpec = swaggerJsdoc(swaggerOptions);
     this.app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
+
+    //db connections
+
+    mongoose
+      .connect(process.env.MONGO_URI!)
+      .then(() => {
+        console.log("Connected to MongoDB");
+      })
+      .catch((error) => {
+        console.error("Error connecting to MongoDB", error, process.env.PORT);
+      });
 
     //regiter application routes
 

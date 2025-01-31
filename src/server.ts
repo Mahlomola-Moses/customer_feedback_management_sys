@@ -1,4 +1,5 @@
 // Import the necessary modules
+import "dotenv/config";
 import http from "http";
 import { App } from "./app";
 
