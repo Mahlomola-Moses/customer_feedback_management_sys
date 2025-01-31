@@ -1,7 +1,12 @@
-// Import necessary modules
+// Import necessary modules and configs
 import express from "express";
 import bodyParser from "body-parser";
 import cors from "cors";
+import swaggerJsdoc from "swagger-jsdoc";
+import swaggerUi from "swagger-ui-express";
+import swaggerOptions from "./configs/swagger.config";
+
+// Import application routes
 import { AdminRoutes } from "./routes/admin.route";
 
 export class App {
@@ -28,6 +33,10 @@ export class App {
 
     // Parse incoming JSON requests and make the data available under req.body
     this.app.use(bodyParser.json());
+
+    //setup swagger
+    const swaggerSpec = swaggerJsdoc(swaggerOptions);
+    this.app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
     //regiter application routes
 
