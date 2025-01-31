@@ -1,9 +1,12 @@
 import { Router, Request, Response } from "express";
+import { AdminController } from "../controllers/admin.controller";
 
 export class AdminRoutes {
   private router: Router;
+  private adminController: AdminController;
   constructor(router: Router) {
     this.router = router;
+    this.adminController = new AdminController();
     this.initRoutes();
   }
 
@@ -23,7 +26,7 @@ export class AdminRoutes {
      *         description: Error fetching admin
      */
     this.router.get("/admin", async (req: Request, res: Response) => {
-      res.status(200).send("admin get endpoint");
+      await this.adminController.getAdmins(req, res);
     });
   }
 }
