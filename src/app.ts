@@ -2,6 +2,7 @@
 import express from "express";
 import bodyParser from "body-parser";
 import cors from "cors";
+import { AdminRoutes } from "./routes/admin.route";
 
 export class App {
   public app: express.Application;
@@ -27,6 +28,10 @@ export class App {
 
     // Parse incoming JSON requests and make the data available under req.body
     this.app.use(bodyParser.json());
+
+    //regiter application routes
+
+    new AdminRoutes(this.appRouter);
 
     // Use the router for handling routes
     this.app.use(this.appRouter);
