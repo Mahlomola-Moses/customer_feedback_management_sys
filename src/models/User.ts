@@ -1,23 +1,25 @@
 import { Schema, model, Document } from "mongoose";
 
-export interface AdminModel {
+export interface UserModel {
   name: string;
   lastname: string;
   email: string;
+  type: string;
   password: string;
   createdAt?: Date;
   modifiedAt?: Date;
 }
 
-interface IAdmin extends AdminModel, Document {}
+interface IUser extends UserModel, Document {}
 
-const adminSchema = new Schema<IAdmin>({
+const userSchema = new Schema<IUser>({
   name: { type: String, required: true },
   lastname: { type: String, required: true },
   email: { type: String, required: true, unique: true },
+  type: { type: String, required: true },
   password: { type: String, required: true },
   createdAt: { type: Date, default: Date.now },
   modifiedAt: { type: Date, default: Date.now },
 });
 
-export const Admin = model<IAdmin>("Admin", adminSchema);
+export const User = model<IUser>("User", userSchema);
