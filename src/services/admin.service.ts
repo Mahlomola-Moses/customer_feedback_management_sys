@@ -31,6 +31,10 @@ export class AdminService {
     return results;
   }
 
+  public async deleteAdmin(id: string): Promise<void> {
+    const results = await User.findByIdAndDelete(id);
+  }
+
   private async hashString(str: string): Promise<string> {
     return await bcrypt.hash(str, 10);
   }

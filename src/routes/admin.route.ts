@@ -88,5 +88,36 @@ export class AdminRoutes {
         await this.adminController.createAdmin(req, res);
       }
     );
+
+    /**
+     * @swagger
+     * /admin/{id}:
+     *   delete:
+     *     summary: Delete an admin by ID (Admin only)
+     *     tags: [Admin]
+     *     security:
+     *       - bearerAuth: []
+     *     parameters:
+     *       - in: path
+     *         name: id
+     *         schema:
+     *           type: string
+     *         required: true
+     *         description: The ID of the admin to delete
+     *     responses:
+     *       200:
+     *         description: Admin deleted successfully
+     *       401:
+     *         description: Unauthorized, token is missing or invalid
+     *       500:
+     *         description: Internal server error
+     */
+    this.router.delete(
+      "/admin/:id",
+      this.authMiddleware.authenticate.bind(this.authMiddleware),
+      async (req: Request, res: Response) => {
+        await this.adminController.deleteAdmin(req, res);
+      }
+    );
   }
 }

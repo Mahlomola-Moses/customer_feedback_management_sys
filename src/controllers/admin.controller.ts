@@ -29,4 +29,16 @@ export class AdminController {
       return res.status(500).json({ message: error.stack });
     }
   }
+
+  public async deleteAdmin(req: Request, res: Response): Promise<Response> {
+    try {
+      const { id } = req.params;
+      const results = await this.adminService.deleteAdmin(id);
+      return res
+        .status(200)
+        .json({ results, message: "Admin removed successfully" });
+    } catch (error) {
+      return res.status(500).json({ message: error.stack });
+    }
+  }
 }
