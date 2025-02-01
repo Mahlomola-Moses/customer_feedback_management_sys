@@ -41,5 +41,38 @@ export class AdminRoutes {
     this.router.get("/admin", async (req: Request, res: Response) => {
       await this.adminController.getAdmins(req, res);
     });
+
+    /**
+     * @swagger
+     * /admin:
+     *   post:
+     *     summary: Add a new admin (Admin only)
+     *     tags: [Admin]
+     *     security:
+     *       - bearerAuth: []
+     *     requestBody:
+     *       required: true
+     *       content:
+     *         application/json:
+     *           schema:
+     *             type: object
+     *             properties:
+     *               name:
+     *                type: string
+     *               lastname:
+     *                 type: string
+     *               email:
+     *                 type: string
+     *               password:
+     *                 type: string
+     *     responses:
+     *       201:
+     *         description: Admin added successfully
+     *       500:
+     *         description: Error adding admin
+     */
+    this.router.post("/admin", async (req: Request, res: Response) => {
+      await this.adminController.createAdmin(req, res);
+    });
   }
 }

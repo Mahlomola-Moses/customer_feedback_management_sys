@@ -18,4 +18,15 @@ export class AdminController {
       return res.status(500).json({ message: error.stack });
     }
   }
+
+  public async createAdmin(req: Request, res: Response): Promise<Response> {
+    try {
+      const results = await this.adminService.createAdmin(req.body);
+      return res
+        .status(201)
+        .json({ results, message: "Admin created successfully" });
+    } catch (error) {
+      return res.status(500).json({ message: error.stack });
+    }
+  }
 }

@@ -21,4 +21,11 @@ export class AdminService {
 
     return { admins, total, totalPages };
   }
+
+  public async createAdmin(model: AdminModel): Promise<AdminModel> {
+    const admin = new Admin(model);
+    const results = await admin.save();
+
+    return results;
+  }
 }

@@ -5,8 +5,8 @@ export interface AdminModel {
   lastname: string;
   email: string;
   password: string;
-  createdAt: Date;
-  modifiedAt: Date;
+  createdAt?: Date;
+  modifiedAt?: Date;
 }
 
 interface IAdmin extends AdminModel, Document {}
