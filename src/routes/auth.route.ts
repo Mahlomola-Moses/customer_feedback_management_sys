@@ -1,12 +1,16 @@
 import { Router, Request, Response } from "express";
 import { AuthController } from "../controllers/auth.controller";
+import { ValidateRequestMiddleware } from "../middleware/validate-request.middleware";
+import { loginValidationSchema } from "../validations/login.validation";
 
 export class authRoutes {
   private router: Router;
   private authController: AuthController;
+  private validateRequestMiddleware: ValidateRequestMiddleware;
   constructor(router: Router) {
     this.router = router;
     this.authController = new AuthController();
+    this.validateRequestMiddleware = new ValidateRequestMiddleware();
     this.initRoutes();
   }
 
@@ -36,8 +40,14 @@ export class authRoutes {
      *       500:
      *         description: Error logging in
      */
-    this.router.post("/auth/login", async (req: Request, res: Response) => {
-      await this.authController.login(req, res);
-    });
+    this.router.post(
+      "/auth/login",
+      this.validateRequestMiddleware
+        .validateRequest(loginValidationSchema)
+        .bind(this.validateRequestMiddleware),
+      async (req: Request, res: Response) => {
+        await this.authController.login(req, res);
+      }
+    );
   }
 }
