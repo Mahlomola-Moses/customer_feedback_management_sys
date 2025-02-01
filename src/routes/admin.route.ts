@@ -1,12 +1,15 @@
 import { Router, Request, Response } from "express";
 import { AdminController } from "../controllers/admin.controller";
+import { AuthMiddleware } from "../middleware/auth.middleware";
 
 export class AdminRoutes {
   private router: Router;
   private adminController: AdminController;
+  private authMiddleware: AuthMiddleware;
   constructor(router: Router) {
     this.router = router;
     this.adminController = new AdminController();
+    this.authMiddleware = new AuthMiddleware();
     this.initRoutes();
   }
 
@@ -33,14 +36,19 @@ export class AdminRoutes {
      *     responses:
      *       200:
      *         description: Admins fetched successfully
-     *
+     *       401:
+     *         description: Unauthorised, token is missing or invalid
      *       500:
      *         description: Error fetching admins
      */
 
-    this.router.get("/admin", async (req: Request, res: Response) => {
-      await this.adminController.getAdmins(req, res);
-    });
+    this.router.get(
+      "/admin",
+      this.authMiddleware.authenticate.bind(this.authMiddleware),
+      async (req: Request, res: Response) => {
+        await this.adminController.getAdmins(req, res);
+      }
+    );
 
     /**
      * @swagger
@@ -68,11 +76,17 @@ export class AdminRoutes {
      *     responses:
      *       201:
      *         description: Admin added successfully
+     *       401:
+     *         description: Unauthorised, token is missing or invalid
      *       500:
      *         description: Error adding admin
      */
-    this.router.post("/admin", async (req: Request, res: Response) => {
-      await this.adminController.createAdmin(req, res);
-    });
+    this.router.post(
+      "/admin",
+      this.authMiddleware.authenticate.bind(this.authMiddleware),
+      async (req: Request, res: Response) => {
+        await this.adminController.createAdmin(req, res);
+      }
+    );
   }
 }
