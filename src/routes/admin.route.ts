@@ -1,15 +1,19 @@
 import { Router, Request, Response } from "express";
 import { AdminController } from "../controllers/admin.controller";
 import { AuthMiddleware } from "../middleware/auth.middleware";
+import { ValidateRequestMiddleware } from "../middleware/validate-request.middleware";
+import { adminValidationSchema } from "../validations/admin.validation";
 
 export class AdminRoutes {
   private router: Router;
   private adminController: AdminController;
   private authMiddleware: AuthMiddleware;
+  private validateRequestMiddleware: ValidateRequestMiddleware;
   constructor(router: Router) {
     this.router = router;
     this.adminController = new AdminController();
     this.authMiddleware = new AuthMiddleware();
+    this.validateRequestMiddleware = new ValidateRequestMiddleware();
     this.initRoutes();
   }
 
@@ -84,6 +88,9 @@ export class AdminRoutes {
     this.router.post(
       "/admin",
       this.authMiddleware.authenticate.bind(this.authMiddleware),
+      this.validateRequestMiddleware
+        .validateRequest(adminValidationSchema)
+        .bind(this.validateRequestMiddleware),
       async (req: Request, res: Response) => {
         await this.adminController.createAdmin(req, res);
       }
