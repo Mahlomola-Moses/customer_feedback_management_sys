@@ -1,5 +1,5 @@
 import { Admin, AdminModel } from "../models/Admin";
-
+import bcrypt from "bcryptjs";
 export class AdminService {
   constructor() {}
 
@@ -23,9 +23,14 @@ export class AdminService {
   }
 
   public async createAdmin(model: AdminModel): Promise<AdminModel> {
+    model.password = await this.hashString(model.password);
     const admin = new Admin(model);
     const results = await admin.save();
 
     return results;
+  }
+
+  private async hashString(candidatePassword: string): Promise<string> {
+    return await bcrypt.hash(candidatePassword, 10);
   }
 }
