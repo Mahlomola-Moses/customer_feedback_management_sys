@@ -4,7 +4,7 @@ export interface FeedbackModel {
   name: string;
   email: string;
   message: string;
-  createdAt: Date;
+  createdAt?: Date;
 }
 
 interface IFeedback extends FeedbackModel, Document {}

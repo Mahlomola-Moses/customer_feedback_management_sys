@@ -10,6 +10,7 @@ import swaggerOptions from "./configs/swagger.config";
 import { AdminRoutes } from "./routes/admin.route";
 import mongoose from "mongoose";
 import { authRoutes } from "./routes/auth.route";
+import { FeedbackRoutes } from "./routes/feedback.route";
 
 export class App {
   public app: express.Application;
@@ -52,9 +53,9 @@ export class App {
       });
 
     //regiter application routes
-
-    new AdminRoutes(this.appRouter);
     new authRoutes(this.appRouter);
+    new AdminRoutes(this.appRouter);
+    new FeedbackRoutes(this.appRouter);
 
     // Use the router for handling routes
     this.app.use(this.appRouter);
