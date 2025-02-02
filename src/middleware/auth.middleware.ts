@@ -16,11 +16,7 @@ export class AuthMiddleware {
     }
 
     try {
-      //revistes for env key (-?-)
-      const decoded = jwt.verify(
-        token,
-        "e2b8f7a1c3d9e4f5a6b7c8d9e0f1a2b3c4d5e6f7a8b9c0d1e2f3a4b5c6d7e8f9"
-      );
+      const decoded = jwt.verify(token, process.env.TOKEN_SECRET!);
       (req as any).adminId = (decoded as any).id;
       next();
     } catch (error) {
