@@ -1,6 +1,6 @@
 import { Feedback, FeedbackModel } from "../models/Feedback";
 
-export class feedbackService {
+export class FeedbackService {
   constructor() {}
 
   public async createfeedback(model: FeedbackModel): Promise<FeedbackModel> {
