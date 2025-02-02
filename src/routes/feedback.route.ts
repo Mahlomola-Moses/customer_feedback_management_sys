@@ -2,6 +2,7 @@ import { Router, Request, Response } from "express";
 import { FeedbackController } from "../controllers/feedback.controller";
 import { AuthMiddleware } from "../middleware/auth.middleware";
 import { ValidateRequestMiddleware } from "../middleware/validate-request.middleware";
+import { feedbackValidationSchema } from "../validations/feedback.validation";
 
 export class FeedbackRoutes {
   private router: Router;
@@ -79,8 +80,14 @@ export class FeedbackRoutes {
      *       500:
      *         description: Error adding feedback
      */
-    this.router.post("/feedback", async (req: Request, res: Response) => {
-      await this.feedbackController.createfeedback(req, res);
-    });
+    this.router.post(
+      "/feedback",
+      this.validateRequestMiddleware
+        .validateRequest(feedbackValidationSchema)
+        .bind(this.validateRequestMiddleware),
+      async (req: Request, res: Response) => {
+        await this.feedbackController.createfeedback(req, res);
+      }
+    );
   }
 }
