@@ -1,10 +1,19 @@
 import { Router, Request, Response } from "express";
+import { FeedbackController } from "../controllers/feedback.controller";
+import { AuthMiddleware } from "../middleware/auth.middleware";
+import { ValidateRequestMiddleware } from "../middleware/validate-request.middleware";
 
 export class FeedbackRoutes {
   private router: Router;
+  private feedbackController: FeedbackController;
+  private authMiddleware: AuthMiddleware;
+  private validateRequestMiddleware: ValidateRequestMiddleware;
 
   constructor(router: Router) {
     this.router = router;
+    this.feedbackController = new FeedbackController();
+    this.authMiddleware = new AuthMiddleware();
+    this.validateRequestMiddleware = new ValidateRequestMiddleware();
     this.initRoutes();
   }
 
@@ -38,9 +47,9 @@ export class FeedbackRoutes {
      */
     this.router.get(
       "/feedback",
-
+      this.authMiddleware.authenticate.bind(this.authMiddleware),
       async (req: Request, res: Response) => {
-        res.status(200).json({ message: "Feedback fetched successfully" });
+        await this.feedbackController.getfeedbacks(req, res);
       }
     );
     /**
@@ -70,12 +79,8 @@ export class FeedbackRoutes {
      *       500:
      *         description: Error adding feedback
      */
-    this.router.post(
-      "/feedback",
-
-      async (req: Request, res: Response) => {
-        res.status(201).json({ message: "Feedback submitted successfully" });
-      }
-    );
+    this.router.post("/feedback", async (req: Request, res: Response) => {
+      await this.feedbackController.createfeedback(req, res);
+    });
   }
 }

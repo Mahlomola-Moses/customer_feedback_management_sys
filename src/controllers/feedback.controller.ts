@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import { FeedbackService } from "../services/feedback.service";
 
-export class feedbackController {
+export class FeedbackController {
   private feedbackService: FeedbackService;
   constructor() {
     this.feedbackService = new FeedbackService();
