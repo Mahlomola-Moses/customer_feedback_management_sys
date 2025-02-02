@@ -27,4 +27,18 @@ export class AuthMiddleware {
       res.status(401).json({ message: "Token is not valid" });
     }
   }
+
+  public async accessControl(
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ): Promise<void> {
+    const accessKey = req.header("access-key");
+
+    if (!accessKey || accessKey !== process.env.API_ACCESS_KEY) {
+      res.status(403).json({ message: "Access denied" });
+      return;
+    }
+    next();
+  }
 }

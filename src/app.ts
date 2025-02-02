@@ -11,6 +11,7 @@ import { AdminRoutes } from "./routes/admin.route";
 import mongoose from "mongoose";
 import { authRoutes } from "./routes/auth.route";
 import { FeedbackRoutes } from "./routes/feedback.route";
+import { AuthMiddleware } from "./middleware/auth.middleware";
 
 export class App {
   public app: express.Application;
@@ -36,6 +37,9 @@ export class App {
 
     // Parse incoming JSON requests and make the data available under req.body
     this.app.use(bodyParser.json());
+
+    // Apply the access key middleware globally
+    this.app.use(new AuthMiddleware().accessControl);
 
     //setup swagger
     const swaggerSpec = swaggerJsdoc(swaggerOptions);

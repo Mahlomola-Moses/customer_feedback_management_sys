@@ -15,11 +15,20 @@ const swaggerDefinition: SwaggerDefinition = {
         scheme: "bearer",
         bearerFormat: "JWT",
       },
+      apiKeyAuth: {
+        type: "apiKey",
+        in: "header",
+        name: "access-key",
+        description: "API Key for authentication",
+      },
     },
   },
   security: [
     {
       bearerAuth: [],
+    },
+    {
+      apiKeyAuth: [],
     },
   ],
 };

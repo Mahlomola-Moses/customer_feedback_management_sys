@@ -23,6 +23,7 @@ export class authRoutes {
      *     tags: [auth]
      *     security:
      *       - bearerAuth: []
+     *       - apiKeyAuth: []
      *     requestBody:
      *       required: true
      *       content:
