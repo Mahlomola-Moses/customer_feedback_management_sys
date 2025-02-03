@@ -9,7 +9,7 @@ import { FormsModule } from '@angular/forms';
   styleUrls: ['./login.component.css'],
 })
 export class LoginComponent {
-  credentials = { username: '', password: '' };
+  credentials = { email: '', password: '' };
 
   constructor(private authService: AuthService, private router: Router) {}
 
