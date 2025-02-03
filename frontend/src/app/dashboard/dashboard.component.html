@@ -1,6 +1,6 @@
 <div class="dashboard-container">
     <h2>Dashboard</h2>
-
+    <button (click)="openModal()">Add New Record</button>
     <table>
         <thead>
             <tr>
@@ -24,3 +24,34 @@
         </tbody>
     </table>
 </div>
+
+<!-- Modal -->
+@if (showModal) {
+<div class="modal-overlay">
+    <div class="modal">
+        <h3>Add New Record</h3>
+        <form (ngSubmit)="addRecord()">
+            <div>
+                <label for="name">Name:</label>
+                <input id="name" [(ngModel)]="newRecord.name" name="name" required />
+            </div>
+            <div>
+                <label for="lastName">Last Name:</label>
+                <input id="lastName" [(ngModel)]="newRecord.lastname" name="lastName" required />
+            </div>
+            <div>
+                <label for="email">Email:</label>
+                <input id="email" [(ngModel)]="newRecord.email" name="email" type="email" required />
+            </div>
+            <div>
+                <label for="email">Paasword:</label>
+                <input id="email" [(ngModel)]="newRecord.password" name="password" type="password" required />
+            </div>
+            <div class="modal-actions">
+                <button type="button" (click)="closeModal()">Cancel</button>
+                <button type="submit">Save</button>
+            </div>
+        </form>
+    </div>
+</div>
+}
