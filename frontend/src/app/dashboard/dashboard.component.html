@@ -1,12 +1,12 @@
 <div class="dashboard-container">
-    <h2>Dashboard</h2>
+    <h2>Dashboard - Admin</h2>
     <button (click)="openModal()">Add New Record</button>
     <table>
         <thead>
             <tr>
                 <th>ID</th>
                 <th>Name</th>
-                <th>Description</th>
+                <th>Last Name</th>
                 <th>Action</th>
             </tr>
         </thead>
@@ -23,6 +23,11 @@
             }
         </tbody>
     </table>
+    <div class="pagination">
+        <button (click)="previousPage()" [disabled]="currentPage === 1">Previous</button>
+        <span>Page {{ currentPage }} of {{ totalPages }}</span>
+        <button (click)="nextPage()" [disabled]="currentPage === totalPages">Next</button>
+    </div>
 </div>
 
 <!-- Modal -->

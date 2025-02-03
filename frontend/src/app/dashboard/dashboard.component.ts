@@ -16,6 +16,11 @@ export class DashboardComponent implements OnInit {
   showModal = false;
   newRecord = { name: '', lastname: '', email: '', password: '' };
 
+  currentPage = 1;
+  itemsPerPage = 10;
+  totalRecords = 0;
+  totalPages = 1;
+
   constructor(
     private adminService: AdminService,
     private authService: AuthService,
@@ -31,9 +36,12 @@ export class DashboardComponent implements OnInit {
   }
 
   loadRecords(): void {
-    this.adminService.getAdmin().subscribe(
+    this.adminService.getAdmin(this.currentPage, this.itemsPerPage).subscribe(
       (response) => {
         this.records = response.admins;
+
+        this.totalRecords = response.total;
+        this.totalPages = response.totalPages;
       },
       (error) => {
         alert('Failed to load records');
@@ -74,5 +82,26 @@ export class DashboardComponent implements OnInit {
 
   logout(): void {
     this.authService.logout();
+  }
+
+  goToPage(page: number): void {
+    if (page >= 1 && page <= this.totalPages) {
+      this.currentPage = page;
+      this.loadRecords();
+    }
+  }
+
+  nextPage(): void {
+    if (this.currentPage < this.totalPages) {
+      this.currentPage++;
+      this.loadRecords();
+    }
+  }
+
+  previousPage(): void {
+    if (this.currentPage > 1) {
+      this.currentPage--;
+      this.loadRecords();
+    }
   }
 }

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -17,8 +17,13 @@ export class AdminService {
   }): Observable<any> {
     return this.http.post(`${this.apiUrl}`, feedback);
   }
-  getAdmin(): Observable<any> {
-    return this.http.get(`${this.apiUrl}`);
+
+  getAdmin(page: number, limit: number): Observable<any> {
+    const params = new HttpParams()
+      .set('page', page.toString())
+      .set('limit', limit.toString());
+
+    return this.http.get(`${this.apiUrl}`, { params });
   }
 
   deleteAdmin(id: number): Observable<any> {
