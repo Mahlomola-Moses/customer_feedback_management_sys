@@ -13,6 +13,8 @@ import { authRoutes } from "./routes/auth.route";
 import { FeedbackRoutes } from "./routes/feedback.route";
 import { AuthMiddleware } from "./middleware/auth.middleware";
 
+import { User, UserModel } from "./models/User";
+
 export class App {
   public app: express.Application;
 
@@ -49,8 +51,21 @@ export class App {
 
     mongoose
       .connect(process.env.MONGO_URI!)
-      .then(() => {
+      .then(async () => {
         console.log("Connected to MongoDB");
+        const count = await User.countDocuments();
+        if (count === 0) {
+          await User.create({
+            name: "superadmin",
+            lastname: "superadmin",
+            email: process.env.SUPER_ADMIN_EMAIL || "superadmin@yopmail.com",
+            type: "admin",
+            password:
+              process.env.SUPER_ADMIN_PASS ||
+              "$2a$10$X7g7Pob0dJxOrX4HH8qwz.uDGEbblogIhR/h8.Df/vDn3BogK8Vsa",
+            createdAt: new Date(),
+          });
+        }
       })
       .catch((error) => {
         console.error("Error connecting to MongoDB", error, process.env.PORT);
