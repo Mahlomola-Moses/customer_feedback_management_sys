@@ -1,1 +1,10 @@
-<p>dashboard works!</p>
+<div class="dashboard-container">
+    <h2>Dashboard</h2>
+    <button (click)="logout()">Logout</button>
+    <ul>
+        <li *ngFor="let record of records">
+            {{ record.name }} - {{ record.lastname }}
+            <button (click)="deleteRecord(record._id)">Delete</button>
+        </li>
+    </ul>
+</div>
