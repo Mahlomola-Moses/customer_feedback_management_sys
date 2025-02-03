@@ -40,13 +40,11 @@ export class App {
     // Parse incoming JSON requests and make the data available under req.body
     this.app.use(bodyParser.json());
 
-    // Apply the access key middleware globally
-    this.app.use(new AuthMiddleware().accessControl);
-
     //setup swagger
     const swaggerSpec = swaggerJsdoc(swaggerOptions);
     this.app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
-
+    // Apply the access key middleware globally
+    this.app.use(new AuthMiddleware().accessControl);
     //db connections
 
     mongoose

@@ -1,0 +1,40 @@
+version: '3.8'
+
+services:
+  # MongoDB Service
+  db:
+    image: mongo
+    container_name: customer_feedback_db
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo_data:/data/db
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: password
+
+  # Node.js API Service
+  api:
+    build: .
+    container_name: customer_feedback_api
+    ports:
+      - "35050:35050"
+    environment:
+      PORT: 35050
+      API_ACCESS_KEY: e2b8f7a1c3d9e4fAPI7c8d9e0f1a2b3c4d5e6f_
+      MONGO_URI: mongodb://root:password@db:27017/cus_feed_man_sys?authSource=admin
+      TOKEN_SECRET: e2b8f7a1c3d9e4f5a6b7c8d9e0f1a2b3c4d5e6f7a8b9c0d1e2f3a4b5c6d7e8f9
+      SUPER_ADMIN_EMAIL: superadmin@yopmail.com
+      SUPER_ADMIN_PASS: $2a$10$X7g7Pob0dJxOrX4HH8qwz.uDGEbblogIhR/h8.Df/vDn3BogK8Vsa
+      EMAIL_USER: mahlomolamothogoane@gmail.com
+    env_file:
+      - .env
+    depends_on:
+      - db
+    volumes:
+      - .:/app
+      - /app/node_modules
+
+# Volumes for persistent data storage
+volumes:
+  mongo_data:
