@@ -4,6 +4,7 @@ import { environment } from '../environment/environment';
 export const apiKeyInterceptor: HttpInterceptorFn = (req, next) => {
   const modifiedReq = req.clone({
     setHeaders: {
+      Authorization: `Bearer ${localStorage.getItem('token')}`,
       'access-key': environment.apiKey, //correct way is to use proxy avoid showing key in the browser
       'Content-Type': 'application/json',
     },
