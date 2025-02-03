@@ -1,10 +1,26 @@
 <div class="dashboard-container">
     <h2>Dashboard</h2>
-    <button (click)="logout()">Logout</button>
-    <ul>
-        <li *ngFor="let record of records">
-            {{ record.name }} - {{ record.lastname }}
-            <button (click)="deleteRecord(record._id)">Delete</button>
-        </li>
-    </ul>
+
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            @for (record of records; track record._id) {
+            <tr>
+                <td>{{ record._id }}</td>
+                <td>{{ record.name }}</td>
+                <td>{{ record.lastname }}</td>
+                <td>
+                    <button (click)="deleteRecord(record._id)">Delete</button>
+                </td>
+            </tr>
+            }
+        </tbody>
+    </table>
 </div>
