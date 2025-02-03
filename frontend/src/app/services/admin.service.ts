@@ -6,15 +6,22 @@ import { Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class AdminService {
-  private apiUrl = 'http://localhost:35050';
+  private apiUrl = 'http://localhost:35050/admin';
 
   constructor(private http: HttpClient) {}
-
+  createAdmin(feedback: {
+    name: string;
+    lastname: string;
+    email: string;
+    password: string;
+  }): Observable<any> {
+    return this.http.post(`${this.apiUrl}`, feedback);
+  }
   getAdmin(): Observable<any> {
-    return this.http.get(`${this.apiUrl}/admin`);
+    return this.http.get(`${this.apiUrl}`);
   }
 
   deleteAdmin(id: number): Observable<any> {
-    return this.http.delete(`${this.apiUrl}/admin/${id}`);
+    return this.http.delete(`${this.apiUrl}/${id}`);
   }
 }
