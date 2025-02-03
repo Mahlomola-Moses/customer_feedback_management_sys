@@ -1,0 +1,34 @@
+<div class="dashboard-container">
+    <h2>Dashboard</h2>
+
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Message</th>
+
+            </tr>
+        </thead>
+        <tbody>
+            @for (record of records; track record._id) {
+            <tr>
+                <td>{{ record._id }}</td>
+                <td>{{ record.name }}</td>
+                <td>{{ record.email }}</td>
+                <td>{{ record.message }}</td>
+                <!-- <td>
+                    <button (click)="deleteRecord(record._id)">Delete</button>
+                </td> -->
+            </tr>
+            }
+        </tbody>
+    </table>
+
+    <div class="pagination">
+        <button (click)="previousPage()" [disabled]="currentPage === 1">Previous</button>
+        <span>Page {{ currentPage }} of {{ totalPages }}</span>
+        <button (click)="nextPage()" [disabled]="currentPage === totalPages">Next</button>
+    </div>
+</div>
