@@ -1,4 +1,4 @@
-# Customer feedback management  
+# Customer Feedback Management  
 
 ## Overview  
 This project is a **monolithic** web application built using:  
@@ -27,12 +27,12 @@ Ensure you have the following installed:
 ### Steps to Run Using Docker Compose  
 1. Clone the repository:  
    ```bash
-   git clone https://github.com/Mahlomola-Moses/customer_feedback_management_sys/tree/dev
-   cd your-repo
+   git clone https://github.com/Mahlomola-Moses/customer_feedback_management_sys.git
+   cd customer_feedback_management_sys
    ```  
 2. Start all services using Docker Compose:  
    ```bash
-   docker-compose up --build
+   docker-compose build
    ```  
    ```bash
    docker-compose up -d
@@ -46,7 +46,14 @@ Ensure you have the following installed:
   ```
 
  The backend will be available at `http://localhost:35050`  
- The frontend will be accessible at `http://localhost:4200` 
+ The frontend will be accessible at `http://localhost:4200`  
+ 
+### Auto-generated user for the first login
+ `Email: superadmin@yopmail.com`
+ `Password: string`
+
+### Customer feedback link
+  `http://localhost:4200/feedback`
 
 ---
 
@@ -56,7 +63,9 @@ Ensure you have the following installed:
    http://localhost:35050/api-docs
    ```
 2. Here, you can explore all available API endpoints and test them directly.
- 
+3. **Use the access-key header to access endpoints in Swagger:**
+   - **Header Key:** `access-key`
+   - **Header Value:** `e2b8f7a1c3d9e4fAPI7c8d9e0f1a2b3c4d5e6f_` you can always change the key in the .env
 
 ### **Authentication & Authorization**  
 To access protected endpoints, you need to authenticate and obtain a token:  
@@ -70,38 +79,22 @@ To access protected endpoints, you need to authenticate and obtain a token:
  "password": "string"
 }
 ```
-- **Body:** 
+- **Response:**  
 ```json
 {
- "token": "your_jwt_token",
- 
+ "token": "your_jwt_token"
 }
 ```
+
 ---
 
 ## Testing with Postman  
-1. Open Postman and import the **API Collection** from `postman_collection.json` (if available).  
-2. Set the **Base URL** to:  
-   ```
-   http://localhost:3000/api
-   ```
-3. Use Postman to send requests like:  
-   - **POST /users** – Create a new user  
-   - **GET /users** – Fetch all users  
-   - **PUT /users/:id** – Update user details  
-   - **DELETE /users/:id** – Remove a user  
+1. Download the **Postman Collection** and **Environment Variables** from the repo  
+   - [Postman Collection](https://example.com/postman_collection.json)  
+   - [Postman Environment](https://example.com/postman_environment.json)
+2. Open Postman and import the downloaded **API Collection** and **Environment Variables**.  
+3. Set the **dev** as you environment 
+4. **Authenticate first** by using the `auth.login` endpoint under the **auth** folder in the collection.
+5. 
+  
 
----
-
-## Contributing  
-1. Fork the repository  
-2. Create a new feature branch:  
-   ```bash
-   git checkout -b feature-branch
-   ```  
-3. Commit changes and push to GitHub  
-
----
-
-## License  
-This project is licensed under [MIT License](LICENSE).  
