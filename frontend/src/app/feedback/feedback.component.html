@@ -1,0 +1,9 @@
+<div class="feedback-container">
+    <h2>Feedback</h2>
+    <form (ngSubmit)="submitFeedback()">
+        <input [(ngModel)]="feedback.name" name="name" placeholder="Your Name" required />
+        <input [(ngModel)]="feedback.email" name="email" placeholder="Your Email" required />
+        <textarea [(ngModel)]="feedback.message" name="message" placeholder="Your Feedback" required></textarea>
+        <button type="submit">Submit</button>
+    </form>
+</div>
