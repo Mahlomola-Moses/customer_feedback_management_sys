@@ -90,7 +90,7 @@ To access protected endpoints, you need to authenticate and obtain a token:
 
 ## Testing with Postman  
 1. Download the **Postman Collection** and **Environment Variables** from the repo  
-   - [Postman Collection](https://example.com/postman_collection.json)  
+   - [Postman Collection]([https://example.com/postman_collection.json](https://github.com/Mahlomola-Moses/customer_feedback_management_sys/blob/main/customer_feedback_management_sys.postman_collection.json)  
    - [Postman Environment](https://example.com/postman_environment.json)
 2. Open Postman and import the downloaded **API Collection** and **Environment Variables**.  
 3. Set the **dev** as you environment 
