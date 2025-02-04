@@ -25,7 +25,7 @@ services:
       MONGO_URI: mongodb://root:password@db:27017/cus_feed_man_sys?authSource=admin
       TOKEN_SECRET: e2b8f7a1c3d9e4f5a6b7c8d9e0f1a2b3c4d5e6f7a8b9c0d1e2f3a4b5c6d7e8f9
       SUPER_ADMIN_EMAIL: superadmin@yopmail.com
-      SUPER_ADMIN_PASS: $2a$10$X7g7Pob0dJxOrX4HH8qwz.uDGEbblogIhR/h8.Df/vDn3BogK8Vsa
+      SUPER_ADMIN_PASS: string
       EMAIL_USER: mahlomolamothogoane@gmail.com
     env_file:
       - .env

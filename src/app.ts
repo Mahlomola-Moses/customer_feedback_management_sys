@@ -14,6 +14,7 @@ import { FeedbackRoutes } from "./routes/feedback.route";
 import { AuthMiddleware } from "./middleware/auth.middleware";
 
 import { User, UserModel } from "./models/User";
+import bcrypt from "bcryptjs";
 
 export class App {
   public app: express.Application;
@@ -53,14 +54,13 @@ export class App {
         console.log("Connected to MongoDB");
         const count = await User.countDocuments();
         if (count === 0) {
+          const pass = await bcrypt.hash("string", 10);
           await User.create({
             name: "superadmin",
             lastname: "superadmin",
             email: process.env.SUPER_ADMIN_EMAIL || "superadmin@yopmail.com",
             type: "admin",
-            password:
-              process.env.SUPER_ADMIN_PASS ||
-              "$2a$10$X7g7Pob0dJxOrX4HH8qwz.uDGEbblogIhR/h8.Df/vDn3BogK8Vsa",
+            password: pass,
             createdAt: new Date(),
           });
         }

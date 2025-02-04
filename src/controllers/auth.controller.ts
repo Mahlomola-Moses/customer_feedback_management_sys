@@ -9,7 +9,7 @@ export class AuthController {
   async login(req: Request, res: Response): Promise<void> {
     const { email, password } = req.body;
     const user = await User.findOne({ email });
-
+    console.log("user found", user);
     if (!user || !bcrypt.compareSync(password, user.password)) {
       res.status(401).send("Invalid credentials");
       return;

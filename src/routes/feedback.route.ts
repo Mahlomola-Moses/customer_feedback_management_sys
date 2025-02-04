@@ -25,6 +25,8 @@ export class FeedbackRoutes {
      *   get:
      *     summary: Get list of feedbacks
      *     tags: [feedback]
+     *     security:
+     *       - apiKeyAuth: []
      *     parameters:
      *       - in: query
      *         name: page
